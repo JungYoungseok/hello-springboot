@@ -1,5 +1,6 @@
 package hello;
 
+import java.io.IOException;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +20,7 @@ public class GreetingController {
 
     @RequestMapping("/sleep")
     public void sleep(@RequestParam(value="sleeptime", defaultValue="1000") String sleeptime) {
-	System.out.println("We will pause this for" + sleeptime + " millisec"); 
+	System.out.println("We will pause this for " + sleeptime + " millisec"); 
 	int milliseconds = Integer.parseInt(sleeptime);
         try{
     		Thread.sleep(milliseconds);
@@ -31,7 +32,7 @@ public class GreetingController {
     }
 
     @RequestMapping("/sum")
-    public String sum(@RequestParam(value="num", defaultValue="1000") String num) {
+    public String sum(@RequestParam(value="num", defaultValue="1000") String num) throws IOException {
         System.out.println("We will sum from 1 to " + num );
         long num_to_sum = Long.parseLong(num);
 
@@ -41,7 +42,8 @@ public class GreetingController {
             sum += i;
         }
         System.out.println("Sum = " + sum);
-
+        //LambdaGateway.sendResult("https://1ynnpnccud.execute-api.ap-northeast-2.amazonaws.com/vpcLinkId/index.html");
+        LambdaGateway.sendResult("http://127.0.0.1:8080/greeting");
         return Long.toString(sum);
     }
 
