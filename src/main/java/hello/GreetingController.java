@@ -5,10 +5,13 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @RestController
 public class GreetingController {
 
+	private static final Logger logger = LogManager.getLogger(GreetingController.class);
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
@@ -41,9 +44,10 @@ public class GreetingController {
         {
             sum += i;
         }
-        System.out.println("Sum = " + sum);
-        //LambdaGateway.sendResult("https://1ynnpnccud.execute-api.ap-northeast-2.amazonaws.com/vpcLinkId/index.html");
-        LambdaGateway.sendResult("http://127.0.0.1:8080/greeting");
+        System.out.println("Sum = " + sum +" " + System.getProperty("log4j.configurationFile"));
+        logger.debug("Sum = " + sum + " " + System.getProperty("log4j.configurationFile"));
+        LambdaGateway.sendResult("https://1ynnpnccud.execute-api.ap-northeast-2.amazonaws.com/vpcLinkId/index.html");
+        
         return Long.toString(sum);
     }
 
