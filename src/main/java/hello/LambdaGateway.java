@@ -13,7 +13,7 @@ public class LambdaGateway {
 		sendGET(target_url);
 	}
 	
-	private static void sendGET(String url) throws IOException {
+	public static void sendGET(String url) throws IOException {
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("GET");

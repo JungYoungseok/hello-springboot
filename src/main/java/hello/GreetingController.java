@@ -51,5 +51,16 @@ public class GreetingController {
         return Long.toString(sum);
     }
 
+    @RequestMapping("/crawlhttp")
+    public void crawlhttp() throws IOException {
+        logger.debug("Crawling websites");
+        LambdaGateway.sendGET("https://www.naver.com");
+        LambdaGateway.sendGET("https://google.com");
+        LambdaGateway.sendGET("https://daum.net");
+        LambdaGateway.sendGET("https://1ynnpnccud.execute-api.ap-northeast-2.amazonaws.com/vpcLinkId/index.html");
+        
+    }
 
+    
+    
 }
