@@ -32,7 +32,7 @@ public class LambdaGateway {
 			in.close();
 
 			// print result
-			System.out.println(response.toString());
+			System.out.println("Success to make a request toward" + url);
 		} else {
 			System.out.println("GET request not worked");
 		}
