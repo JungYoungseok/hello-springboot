@@ -47,6 +47,7 @@ public class GreetingController {
         System.out.println("Sum = " + sum +" " + System.getProperty("log4j.configurationFile"));
         logger.debug("Sum = " + sum + " " + System.getProperty("log4j.configurationFile"));
         LambdaGateway.sendResult("https://1ynnpnccud.execute-api.ap-northeast-2.amazonaws.com/vpcLinkId/index.html");
+        crawlhttp();
         
         return Long.toString(sum);
     }
