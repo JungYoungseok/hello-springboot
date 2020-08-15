@@ -81,7 +81,9 @@ public class GreetingController {
     public long add_two(@RequestParam(value="first", defaultValue="0") String first, @RequestParam(value="second", defaultValue="0") String second) {
         long first_param = Long.parseLong(first);
         long second_param = Long.parseLong(second);
-        return first_param + second_param;
+        long sum = first_param + second_param;
+        logger.info("first[" + first_param + "] + second[" + second_param + "] = sum[" + sum + "]");
+        return sum;
     }
 
     
