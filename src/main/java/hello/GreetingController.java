@@ -1,6 +1,7 @@
 package hello;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,8 +36,8 @@ public class GreetingController {
     RabbitTemplate rabbitTemplate;
 
         
-    @Autowired
-    Tracer tracer;
+//    @Autowired
+//    Tracer tracer;
     
     
     @RequestMapping("/greeting")
@@ -57,6 +58,24 @@ public class GreetingController {
 
         return;
     }
+
+    @RequestMapping("/largememory")
+    public void largememory(@RequestParam(value="size", defaultValue="100000") String size) {
+        logger.info("We will allocate " + size + " list");
+        int arraySize = Integer.parseInt(size);
+
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        System.out.println("i \t Free Memory \t Total Memory \t Max Memory");
+        for (int i = 0; i < arraySize; i++) {
+            arrayList.add(i);
+            System.out.println(i + " \t " + Runtime.getRuntime().freeMemory() +
+                    " \t \t " + Runtime.getRuntime().totalMemory() +
+                    " \t \t " + Runtime.getRuntime().maxMemory());
+        }
+        return;
+    }
+
+
 
     @RequestMapping("/sum")
     public String sum(@RequestParam(value="num", defaultValue="1000") String num) throws IOException {
@@ -113,17 +132,17 @@ public class GreetingController {
     public String index() throws InterruptedException {
         System.out.println("Sending message from controller...");
         //rabbitTemplate.convertAndSend(MessagingRabbitmqApplication.topicExchangeName, "foo.bar.baz", "Hello from RabbitMQ!");
-        ScopeManager sm = tracer.scopeManager();
-        Tracer.SpanBuilder tb = tracer.buildSpan("servlet.request");
-        Span span = tb.start();
-        try(Scope scope = sm.activate(span)) {
-            span.setTag(DDTags.SERVICE_NAME, "springrabbitmqprod");
-            span.setTag(DDTags.RESOURCE_NAME, "GET /test");
-            span.setTag(DDTags.SPAN_TYPE, "web");
-            publishToRabbitMQ(span.context().toTraceId());
-            //Thread.sleep(20);            
-            span.finish();
-        }
+//        ScopeManager sm = tracer.scopeManager();
+//        Tracer.SpanBuilder tb = tracer.buildSpan("servlet.request");
+//        Span span = tb.start();
+//        try(Scope scope = sm.activate(span)) {
+//            span.setTag(DDTags.SERVICE_NAME, "springrabbitmqprod");
+//            span.setTag(DDTags.RESOURCE_NAME, "GET /test");
+//            span.setTag(DDTags.SPAN_TYPE, "web");
+//            publishToRabbitMQ(span.context().toTraceId());
+//            //Thread.sleep(20);
+//            span.finish();
+//        }
 
         return "\ntest";
     }

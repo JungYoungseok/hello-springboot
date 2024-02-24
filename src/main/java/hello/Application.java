@@ -26,14 +26,14 @@ public class Application {
 	static final String topicExchangeName = "spring-boot-exchange";
 	static final String queueName = "spring-boot";
 
-	@Bean
-	DDTracer initTracer(@Value("springrabbitmqprod") String service) {
-		DDTracer tracer = DDTracer.builder().build();
-		GlobalTracer.register(tracer);
-		// register the same tracer with the Datadog API
-		datadog.trace.api.GlobalTracer.registerIfAbsent(tracer);
-		return tracer;
-	}
+//	@Bean
+//	DDTracer initTracer(@Value("springrabbitmqprod") String service) {
+//		DDTracer tracer = DDTracer.builder().build();
+//		GlobalTracer.register(tracer);
+//		// register the same tracer with the Datadog API
+//		datadog.trace.api.GlobalTracer.registerIfAbsent(tracer);
+//		return tracer;
+//	}
 
 	@Bean
 	Queue queue() {

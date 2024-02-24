@@ -21,8 +21,8 @@ public class Receiver {
 	@Autowired
 	RestTemplate restTemplate;
 
-	@Autowired
-	Tracer tracer;
+//	@Autowired
+//	Tracer tracer;
 
 	//@RabbitListener(queues = "${consumer.rabbitmq.queue}") // Optional. If présent => application.properties
 	public void receiveMessage(String message) {
@@ -30,21 +30,21 @@ public class Receiver {
 		/*String result = restTemplate.getForObject("https://www.google.fr", String.class);
 		System.out.println(result);*/
 
-		Span resultingspan = tracer.activeSpan();
-
-		Tracer.SpanBuilder httpspan = tracer.buildSpan("hey google").asChildOf(resultingspan);
-		Span childspan = httpspan.start();
-
-		try(Scope scope = tracer.activateSpan(childspan)){
-			childspan.setTag(DDTags.RESOURCE_NAME, "GET /");
-			childspan.setTag(DDTags.SPAN_TYPE, "web");
-			childspan.setTag(DDTags.SERVICE_NAME, "Google");
-			childspan.setTag("message", message);
-			childspan.setTag("trace_id", childspan.context().toTraceId());
+//		Span resultingspan = tracer.activeSpan();
+//
+//		Tracer.SpanBuilder httpspan = tracer.buildSpan("hey google").asChildOf(resultingspan);
+//		Span childspan = httpspan.start();
+//
+//		try(Scope scope = tracer.activateSpan(childspan)){
+//			childspan.setTag(DDTags.RESOURCE_NAME, "GET /");
+//			childspan.setTag(DDTags.SPAN_TYPE, "web");
+//			childspan.setTag(DDTags.SERVICE_NAME, "Google");
+//			childspan.setTag("message", message);
+//			childspan.setTag("trace_id", childspan.context().toTraceId());
 			httpRequest();
 			System.out.println("Hello google");
-			childspan.finish();
-		}
+//			childspan.finish();
+//		}
 
 		latch.countDown();
 	}
