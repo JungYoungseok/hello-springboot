@@ -65,17 +65,39 @@ public class GreetingController {
         int arraySize = Integer.parseInt(size);
 
         ArrayList<Integer> arrayList = new ArrayList<>();
-        System.out.println("i \t Free Memory \t Total Memory \t Max Memory");
+
         for (int i = 0; i < arraySize; i++) {
             arrayList.add(i);
-            System.out.println(i + " \t " + Runtime.getRuntime().freeMemory() +
-                    " \t \t " + Runtime.getRuntime().totalMemory() +
-                    " \t \t " + Runtime.getRuntime().maxMemory());
         }
         return;
     }
 
+    @RequestMapping("/generatefileio")
+    public void generatefileio(@RequestParam(value="level", defaultValue="20") String level) {
+        logger.info("We will generate file io");
+        int iteration_num = Integer.parseInt(level);
+        for (int i = 0; i < iteration_num; i++) {
+            FileIOGenerator.generateFileIO();
+        }
 
+        FileIOGenerator.deleteFile();
+        return;
+    }
+
+    @RequestMapping("/highcpu")
+    public float highcpu(@RequestParam(value="level", defaultValue="1") String level) {
+        logger.info("We will consume cpu with " + level + " level");
+        int weigh = Integer.parseInt(level);
+
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        float result = 1;
+        for (float x = 0; x < weigh * 100000; x++){
+            for (float y = 0; y < 100000; y++) {
+                result = result*x*y;
+            }
+        }
+        return result;
+    }
 
     @RequestMapping("/sum")
     public String sum(@RequestParam(value="num", defaultValue="1000") String num) throws IOException {
@@ -102,7 +124,6 @@ public class GreetingController {
         LambdaGateway.sendGET("https://google.com");
         LambdaGateway.sendGET("https://daum.net");
         LambdaGateway.sendGET("https://1ynnpnccud.execute-api.ap-northeast-2.amazonaws.com/vpcLinkId/index.html");
-        
     }
 
     @RequestMapping("/currenttime_in_mil")
