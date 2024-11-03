@@ -145,7 +145,7 @@ public class GreetingController {
         long first_param = Long.parseLong(first);
         long second_param = Long.parseLong(second);
         long sum = first_param + second_param;
-        logger.info("first[" + first_param + "] + second[" + second_param + "] = sum[" + sum + "]");
+        logger.info("first[" + first_param + "] + second[" + second_param + "] = sum[" + sum + "]..");
         return sum;
     }
   
