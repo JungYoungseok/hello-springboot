@@ -152,7 +152,7 @@ public class GreetingController {
     @RequestMapping("/test")
     public String index() throws InterruptedException {
         System.out.println("Sending message from controller...");
-        //rabbitTemplate.convertAndSend(MessagingRabbitmqApplication.topicExchangeName, "foo.bar.baz", "Hello from RabbitMQ!");
+        //rabbitTemplate.convertAndSend(MessagingRabbitmqApplication.topicExchangeName, "foo.bar.baz", "Hello from RabbitMQ!!");
 //        ScopeManager sm = tracer.scopeManager();
 //        Tracer.SpanBuilder tb = tracer.buildSpan("servlet.request");
 //        Span span = tb.start();
